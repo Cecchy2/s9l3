@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import fantasy from "./data/fantasy.json";
-import history from "./data/history.json";
-import horror from "./data/horror.json";
-import romance from "./data/romance.json";
-import scifi from "./data/scifi.json";
+import fantasy from "../data/fantasy.json";
+import history from "../data/history.json";
+import horror from "../data/horror.json";
+import romance from "../data/romance.json";
+import scifi from "../data/scifi.json";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

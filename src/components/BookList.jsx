@@ -1,10 +1,10 @@
 import { Component } from "react";
 import SingleBook from "./SingleBook";
-import fantasy from "./data/fantasy.json";
-import horror from "./data/horror.json";
-import history from "./data/history.json";
-import romance from "./data/romance.json";
-import scifi from "./data/scifi.json";
+import fantasy from "../data/fantasy.json";
+import horror from "../data/horror.json";
+import history from "../data/history.json";
+import romance from "../data/romance.json";
+import scifi from "../data/scifi.json";
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 
 class BookList extends Component {
@@ -76,7 +76,7 @@ class BookList extends Component {
         <Row>
           {filteredBooks.map((book, index) => {
             return (
-              <Col key={index}>
+              <Col xs={12} md={6} lg={3} xl={2} key={index}>
                 <SingleBook img={book.img} title={book.title} price={book.price} category={book.category} />
               </Col>
             );

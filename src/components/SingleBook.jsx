@@ -1,7 +1,7 @@
 import { Card } from "react-bootstrap";
 
 const SingleBook = (props) => (
-  <Card style={{ width: "18rem" }}>
+  <Card>
     <Card.Img variant="top" src={props.img} />
     <Card.Body>
       <Card.Title>{props.title}</Card.Title>
