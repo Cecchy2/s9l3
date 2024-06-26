@@ -13,11 +13,6 @@ class BookList extends Component {
     searchBar: "",
   };
 
-  handleFieldChange = (event) => {
-    event.preventDefault();
-    this.setState({ searchBar: event.target.value });
-  };
-
   setFantasy = () => {
     this.setState({ books: fantasy });
   };
@@ -50,7 +45,10 @@ class BookList extends Component {
                   type="text"
                   placeholder="Cerca il tuo libro"
                   value={this.state.searchBar}
-                  onChange={this.handleFieldChange}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    this.setState({ searchBar: event.target.value });
+                  }}
                 />
               </Form.Group>
             </Form>
