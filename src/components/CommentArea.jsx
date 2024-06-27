@@ -32,18 +32,6 @@ class CommentArea extends Component {
     this.fetchReviews();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.asin !== this.props.asin) {
-      this.fetchReviews();
-    }
-  }
-
-  addComment = (newComment) => {
-    this.setState((prevState) => ({
-      recensioni: [...prevState.recensioni, newComment],
-    }));
-  };
-
   render() {
     return (
       <Container>
