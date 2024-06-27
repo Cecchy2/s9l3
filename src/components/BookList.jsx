@@ -64,7 +64,7 @@ class BookList extends Component {
         <Row>
           {filteredBooks.map((book, index) => {
             return (
-              <Col xs={12} md={6} lg={3} xl={2} key={index}>
+              <Col xs={12} md={6} xl={3} key={index}>
                 <SingleBook
                   img={book.img}
                   title={book.title}
