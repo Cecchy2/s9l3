@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 
 class AddComment extends Component {
   state = {
@@ -30,6 +30,9 @@ class AddComment extends Component {
         const newComment = await response.json();
         this.props.onAddComment(newComment);
         this.setState({ elementId: "", comment: "", rate: "1" });
+        <Alert key={"success"} variant={"success"}>
+          La reviews e' stata inviata
+        </Alert>;
       } else {
         console.error("Error in posting comment");
       }
