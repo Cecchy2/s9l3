@@ -1,12 +1,10 @@
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 
 function Welcome() {
   return (
     <>
-    <h1>Benvenuti Al mio BookShoop</h1>
-      {[
-        'dark',
-      ].map((variant) => (
+      <h1>Benvenuti nel mio BookShoop</h1>
+      {["dark"].map((variant) => (
         <Alert key={variant} variant={variant}>
           Tutti i Libri al 50%
         </Alert>
