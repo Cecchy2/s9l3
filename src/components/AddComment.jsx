@@ -8,9 +8,14 @@ class AddComment extends Component {
     rate: "",
   };
 
+  ReviewSubmit = async (e) => {
+    e.preventDefault();
+    console.log("submit");
+  };
+
   render() {
     return (
-      <Form className="border border-dark m-t-2">
+      <Form className="border border-dark m-t-2" onSubmit={this.ReviewSubmit}>
         <Form.Group className="mb-3">
           <Form.Control
             type="text"
