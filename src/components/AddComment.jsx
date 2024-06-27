@@ -12,33 +12,29 @@ class AddComment extends Component {
     e.preventDefault();
     const { elementId, comment, rate } = this.state;
 
-    if (elementId && comment && rate) {
-      try {
-        const response = await fetch("https://striveschool-api.herokuapp.com/api/comments", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZjlhOTdjMjM5YzAwMTUyZjRiM2QiLCJpYXQiOjE3MTk0OTExNzAsImV4cCI6MTcyMDcwMDc3MH0.hWXOvdsqvExQltlx-3uMY51gcEWGWiG266VOOod96kU",
-          },
-          body: JSON.stringify({
-            elementId: this.props.asin,
-            comment: comment,
-            rate: rate,
-          }),
-        });
-        if (response.ok) {
-          const newComment = await response.json();
-          this.props.onAddComment(newComment);
-          this.setState({ elementId: "", comment: "", rate: "1" });
-        } else {
-          console.error("Error in posting comment");
-        }
-      } catch (error) {
-        console.error("Errore nel submit del commento", error);
+    try {
+      const response = await fetch("https://striveschool-api.herokuapp.com/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZjlhOTdjMjM5YzAwMTUyZjRiM2QiLCJpYXQiOjE3MTk0OTExNzAsImV4cCI6MTcyMDcwMDc3MH0.hWXOvdsqvExQltlx-3uMY51gcEWGWiG266VOOod96kU",
+        },
+        body: JSON.stringify({
+          elementId: this.props.asin,
+          comment: comment,
+          rate: rate,
+        }),
+      });
+      if (response.ok) {
+        const newComment = await response.json();
+        this.props.onAddComment(newComment);
+        this.setState({ elementId: "", comment: "", rate: "1" });
+      } else {
+        console.error("Error in posting comment");
       }
-    } else {
-      console.error("All fields are required.");
+    } catch (error) {
+      console.error("Errore nel submit del commento", error);
     }
   };
 
@@ -59,6 +55,7 @@ class AddComment extends Component {
             placeholder="Scrivi il tuo nome"
             value={this.state.elementId}
             onChange={this.handleChange}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -70,11 +67,12 @@ class AddComment extends Component {
             placeholder="Lascia un commento"
             value={this.state.comment}
             onChange={this.handleChange}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="rate">Lascia un voto</Form.Label>
-          <Form.Select id="rate" name="rate" value={this.state.rate} onChange={this.handleChange}>
+          <Form.Select id="rate" name="rate" value={this.state.rate} onChange={this.handleChange} required>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
