@@ -1,46 +1,87 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 
 class AddComment extends Component {
   state = {
     elementId: "",
     comment: "",
-    rate: "",
+    rate: "1",
   };
 
-  ReviewSubmit = async (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    const { elementId, comment, rate } = this.state;
+
+    if (elementId && comment && rate) {
+      try {
+        const response = await fetch("https://striveschool-api.herokuapp.com/api/comments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZjlhOTdjMjM5YzAwMTUyZjRiM2QiLCJpYXQiOjE3MTk0OTExNzAsImV4cCI6MTcyMDcwMDc3MH0.hWXOvdsqvExQltlx-3uMY51gcEWGWiG266VOOod96kU",
+          },
+          body: JSON.stringify({
+            elementId: this.props.asin,
+            comment: comment,
+            rate: rate,
+          }),
+        });
+        if (response.ok) {
+          const newComment = await response.json();
+          this.props.onAddComment(newComment);
+          this.setState({ elementId: "", comment: "", rate: "1" });
+        } else {
+          console.error("Error in posting comment");
+        }
+      } catch (error) {
+        console.error("Errore nel submit del commento", error);
+      }
+    } else {
+      console.error("All fields are required.");
+    }
+  };
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   };
 
   render() {
     return (
-      <Form className="border border-dark m-t-2" onSubmit={this.ReviewSubmit}>
+      <Form className="border border-dark mt-2 p-3" onSubmit={this.handleSubmit}>
         <Form.Group className="mb-3">
+          <Form.Label htmlFor="elementId">Scrivi il tuo nome</Form.Label>
           <Form.Control
             type="text"
-            placeholder="scrivi il tuo nome"
+            id="elementId"
+            name="elementId"
+            placeholder="Scrivi il tuo nome"
             value={this.state.elementId}
-            onChange={(e) => this.setState({ elementId: e.target.value })}
+            onChange={this.handleChange}
           />
         </Form.Group>
         <Form.Group className="mb-3">
+          <Form.Label htmlFor="comment">Lascia un commento</Form.Label>
           <Form.Control
             type="text"
-            placeholder="lascia un comment"
+            id="comment"
+            name="comment"
+            placeholder="Lascia un commento"
             value={this.state.comment}
-            onChange={(e) => this.setState({ comment: e.target.value })}
+            onChange={this.handleChange}
           />
         </Form.Group>
-        <Form.Label htmlFor="select">Lascia un voto</Form.Label>
-        <Form.Select id="select" value={this.state.rate} onChange={(e) => this.setState({ rate: e.target.value })}>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </Form.Select>
-
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="rate">Lascia un voto</Form.Label>
+          <Form.Select id="rate" name="rate" value={this.state.rate} onChange={this.handleChange}>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </Form.Select>
+        </Form.Group>
         <Button variant="primary" type="submit">
           Submit
         </Button>
@@ -48,4 +89,5 @@ class AddComment extends Component {
     );
   }
 }
+
 export default AddComment;

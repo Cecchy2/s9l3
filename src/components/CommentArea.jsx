@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { Col, Container, ListGroup, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import CommentList from "./CommentList";
 import AddComment from "./AddComment";
 
 class CommentArea extends Component {
   state = {
-    comment: "",
-    rate: "",
-    elementId: "",
     recensioni: [], // Manteniamo questo per gestire le recensioni
   };
 
@@ -19,13 +16,15 @@ class CommentArea extends Component {
             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZjlhOTdjMjM5YzAwMTUyZjRiM2QiLCJpYXQiOjE3MTk0OTExNzAsImV4cCI6MTcyMDcwMDc3MH0.hWXOvdsqvExQltlx-3uMY51gcEWGWiG266VOOod96kU",
         },
       });
+
       if (resp.ok) {
-        this.setState({ recensioni: await resp.json() });
+        const reviews = await resp.json();
+        this.setState({ recensioni: reviews });
       } else {
-        throw new Error("Errore nel reperimento dei commenti");
+        console.error("Errore nel reperimento dei commenti");
       }
     } catch (err) {
-      console.log(err);
+      console.error("Errore nella fetch", err);
     }
   };
 
@@ -39,13 +38,19 @@ class CommentArea extends Component {
     }
   }
 
+  addComment = (newComment) => {
+    this.setState((prevState) => ({
+      recensioni: [...prevState.recensioni, newComment],
+    }));
+  };
+
   render() {
     return (
       <Container>
         <Row>
           <Col>
             <CommentList recensioni={this.state.recensioni} />
-            <AddComment />
+            <AddComment asin={this.props.asin} onAddComment={this.addComment} />
           </Col>
         </Row>
       </Container>
