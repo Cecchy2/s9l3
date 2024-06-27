@@ -13,20 +13,8 @@ class BookList extends Component {
     searchBar: "",
   };
 
-  setFantasy = () => {
-    this.setState({ books: fantasy });
-  };
-  setHistory = () => {
-    this.setState({ books: history });
-  };
-  setHorror = () => {
-    this.setState({ books: horror });
-  };
-  setRomance = () => {
-    this.setState({ books: romance });
-  };
-  setScifi = () => {
-    this.setState({ books: scifi });
+  setBooks = (genere) => {
+    this.setState({ books: genere });
   };
 
   render() {
@@ -56,19 +44,19 @@ class BookList extends Component {
         </Row>
         <Row>
           <Col>
-            <Button variant="secondary" onClick={this.setFantasy} className="m-4">
+            <Button variant="secondary" onClick={() => this.setBooks(fantasy)} className="m-4">
               Fantasy
             </Button>
-            <Button variant="secondary" onClick={this.setHistory} className="m-4">
+            <Button variant="secondary" onClick={() => this.setBooks(history)} className="m-4">
               History
             </Button>
-            <Button variant="secondary" onClick={this.setHorror} className="m-4">
+            <Button variant="secondary" onClick={() => this.setBooks(horror)} className="m-4">
               Horror
             </Button>
-            <Button variant="secondary" onClick={this.setRomance} className="m-4">
+            <Button variant="secondary" onClick={() => this.setBooks(romance)} className="m-4">
               Romance
             </Button>
-            <Button variant="secondary" onClick={this.setScifi} className="m-4">
+            <Button variant="secondary" onClick={() => this.setBooks(scifi)} className="m-4">
               SciFi
             </Button>
           </Col>
