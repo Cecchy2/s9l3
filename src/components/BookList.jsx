@@ -65,7 +65,13 @@ class BookList extends Component {
           {filteredBooks.map((book, index) => {
             return (
               <Col xs={12} md={6} lg={3} xl={2} key={index}>
-                <SingleBook img={book.img} title={book.title} price={book.price} category={book.category} />
+                <SingleBook
+                  img={book.img}
+                  title={book.title}
+                  price={book.price}
+                  category={book.category}
+                  asin={book.asin}
+                />
               </Col>
             );
           })}
